@@ -1,4 +1,4 @@
-libluajit-5.1.so.2 libluajit-5.1-2 #MINVER#
+libluajit-5.1.so.2 libluajit-5.1-2 #MINVER# | libluajit2-5.1-2 (>= 2.1~)
  luaJIT_profile_dumpstack@Base 2.1.0~beta1+dfsg
  luaJIT_profile_start@Base 2.1.0~beta1+dfsg
  luaJIT_profile_stop@Base 2.1.0~beta1+dfsg
@@ -144,4 +144,5 @@ libluajit-5.1.so.2 libluajit-5.1-2 #MINVER#
  luaopen_os@Base 2.0.4+dfsg
  luaopen_package@Base 2.0.4+dfsg
  luaopen_string@Base 2.0.4+dfsg
+ luaopen_string_buffer@Base 2.1.0~beta3+git20220320+dfsg
  luaopen_table@Base 2.0.4+dfsg

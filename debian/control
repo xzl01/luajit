@@ -1,22 +1,26 @@
 Source: luajit
 Section: interpreters
 Priority: optional
-Maintainer: Enrico Tassi <gareuselesinge@debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>
-Build-Depends: debhelper (>= 10~)
-Standards-Version: 3.9.8
-Vcs-Git: git://anonscm.debian.org/pkg-lua/luajit.git
-Vcs-Browser: https://anonscm.debian.org/cgit/pkg-lua/luajit.git
+Maintainer: Debian Lua Team <pkg-lua-devel@lists.alioth.debian.org>
+Uploaders: Ondřej Surý <ondrej@debian.org>,
+           Mo Zhou <lumin@debian.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.5.1.0
+Vcs-Git: https://salsa.debian.org/lua-team/luajit.git
+Vcs-Browser: https://salsa.debian.org/lua-team/luajit.git
 Homepage: http://luajit.org
 
 Package: luajit
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mips64el mipsel ppc64el powerpc ppc64
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libluajit-5.1-2 (= ${binary:Version}),
-         libluajit-5.1-common (= ${source:Version}),
+Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
+         libluajit-5.1-common (= ${source:Version}) [!ppc64el !s390x],
          ${misc:Depends},
-         ${shlibs:Depends}
+         ${shlibs:Depends},
+         luajit2 [ppc64el s390x],
+Conflicts: luajit2 [!ppc64el !s390x]
+Replaces: luajit2 [!ppc64el !s390x]
 Description: Just in time compiler for Lua programming language version 5.1
  LuaJIT implements the full set of language features defined by Lua 5.1. The
  virtual machine (VM) is API- and ABI-compatible to the standard Lua interpreter
@@ -29,18 +33,22 @@ Package: libluajit-5.1-common
 Architecture: all
 Multi-Arch: foreign
 Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Conflicts: libluajit2-5.1-common
+Replaces: libluajit2-5.1-common
 Description: Just in time compiler for Lua - common files
  This package contains files needed by the LuaJIT interpreter/jitter as well
  by its embeddable (i.e. library) version.
 
 Package: libluajit-5.1-2
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mips64el mipsel ppc64el powerpc ppc64
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libluajit-5.1-common (= ${source:Version}),
+Depends: libluajit-5.1-common (= ${source:Version}) [!ppc64el !s390x],
          ${misc:Depends},
-         ${shlibs:Depends}
+         ${shlibs:Depends},
+         libluajit2-5.1-2 [ppc64el s390x]
+Conflicts: libluajit2-5.1-2 [!ppc64el !s390x]
+Replaces: libluajit2-5.1-2 [!ppc64el !s390x]
 Description: Just in time compiler for Lua - library version
  LuaJIT implements the full set of language features defined by Lua 5.1. The
  virtual machine (VM) is API- and ABI-compatible to the standard Lua interpreter
@@ -53,10 +61,13 @@ Package: libluajit-5.1-dev
 Section: libdevel
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mips64el mipsel ppc64el powerpc ppc64
-Depends: libluajit-5.1-2 (= ${binary:Version}),
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
+Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
          ${misc:Depends},
-         ${shlibs:Depends}
+         ${shlibs:Depends},
+         libluajit2-5.1-dev [ppc64el s390x]
+Conflicts: libluajit2-5.1-dev [!ppc64el !s390x]
+Replaces: libluajit2-5.1-dev [!ppc64el !s390x]
 Description: Just in time compiler for Lua - development files
  This package contains header files and a statically linkable library for
  LuaJIT.

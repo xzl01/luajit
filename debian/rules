@@ -11,12 +11,33 @@ include /usr/share/dpkg/default.mk
 %:
 	dh $@
 
+override_dh_auto_clean:
+ifeq (,$(filter $(DEB_HOST_ARCH),ppc64el s390x))
+	dh_auto_clean
+endif
+
+override_dh_auto_configure:
+ifneq (,$(filter $(DEB_HOST_ARCH),ppc64el s390x))
+	# Binary packages for ppc64el and s390x are transitional dummy packages.
+	-$(RM) debian/*.install debian/*.symbols
+endif
+
 override_dh_auto_build:
-	make amalg PREFIX=/usr CC=gcc MULTILIB=lib/$(DEB_HOST_MULTIARCH)
+ifeq (,$(filter $(DEB_HOST_ARCH),ppc64el s390x))
+	$(MAKE) amalg PREFIX=/usr MULTILIB=lib/$(DEB_HOST_MULTIARCH) CROSS=$(DEB_HOST_GNU_TYPE)- Q= E=@:
+endif
 
 override_dh_auto_install:
+ifeq (,$(filter $(DEB_HOST_ARCH),ppc64el s390x))
 	make install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp/ MULTILIB=lib/$(DEB_HOST_MULTIARCH) LDCONFIG="/sbin/ldconfig -n"
 	sed -i 's?^multilib=.*?multilib=lib/$(DEB_HOST_MULTIARCH)?' \
 		debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/*.pc
 	# debian doesn't allow multiple luajit versions, just rename the binary to luajit
 	mv $(CURDIR)/debian/tmp/usr/bin/luajit-* $(CURDIR)/debian/tmp/usr/bin/luajit
+endif
+
+execute_after_dh_auto_test:
+ifeq (,$(filter $(DEB_HOST_ARCH),ppc64el s390x))
+	# fail early on architectures it does not support
+	./src/luajit -e 'print(true)'
+endif
