@@ -1,10 +1,11 @@
-Format: http://dep.debian.net/deps/dep5/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: LuaJIT
-Upstream-Contact: Mike Pall, http://luajit.org/contact.html
-Source: http://luajit.org/
+Upstream-Contact: Mike Pall, https://luajit.org/contact.html
+Source: https://luajit.org/
+Files-Excluded: doc/*
 
 Files: *
-Copyright: 2005-2011, Mike Pall
+Copyright: 2005-2023, Mike Pall
 License: MIT/X
 
 Files: src/lua.h src/lauxlib.h src/lualib.h

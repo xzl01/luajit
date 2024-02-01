@@ -5,10 +5,11 @@ Maintainer: Debian Lua Team <pkg-lua-devel@lists.alioth.debian.org>
 Uploaders: Ondřej Surý <ondrej@debian.org>,
            Mo Zhou <lumin@debian.org>
 Build-Depends: debhelper-compat (= 13)
-Standards-Version: 4.5.1.0
+Standards-Version: 4.6.2
 Vcs-Git: https://salsa.debian.org/lua-team/luajit.git
 Vcs-Browser: https://salsa.debian.org/lua-team/luajit.git
-Homepage: http://luajit.org
+Rules-Requires-Root: no
+Homepage: https://luajit.org
 
 Package: luajit
 Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x

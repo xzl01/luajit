@@ -7,11 +7,11 @@ Subject: consider Hurd as a POSIX system
  src/lj_arch.h | 2 ++
  2 files changed, 5 insertions(+)
 
-Index: luajit/src/Makefile
+Index: luajit-2.1.0/src/Makefile
 ===================================================================
---- luajit.orig/src/Makefile
-+++ luajit/src/Makefile
-@@ -352,6 +352,9 @@ else
+--- luajit-2.1.0.orig/src/Makefile
++++ luajit-2.1.0/src/Makefile
+@@ -351,6 +351,9 @@
    ifeq (GNU/kFreeBSD,$(TARGET_SYS))
      TARGET_XLIBS+= -ldl
    endif
@@ -21,13 +21,13 @@ Index: luajit/src/Makefile
  endif
  endif
  endif
-Index: luajit/src/lj_arch.h
+Index: luajit-2.1.0/src/lj_arch.h
 ===================================================================
---- luajit.orig/src/lj_arch.h
-+++ luajit/src/lj_arch.h
-@@ -93,6 +93,8 @@
- #elif defined(__CYGWIN__)
- #define LJ_TARGET_CYGWIN	1
+--- luajit-2.1.0.orig/src/lj_arch.h
++++ luajit-2.1.0/src/lj_arch.h
+@@ -96,6 +96,8 @@
+ #elif defined(__QNX__)
+ #define LJ_TARGET_QNX		1
  #define LUAJIT_OS	LUAJIT_OS_POSIX
 +#elif defined(__GNU__)
 +#define LUAJIT_OS	LUAJIT_OS_POSIX
