@@ -10,9 +10,9 @@ Index: luajit-2.1.0/src/Makefile
 ===================================================================
 --- luajit-2.1.0.orig/src/Makefile
 +++ luajit-2.1.0/src/Makefile
-@@ -53,9 +53,9 @@
- CCOPT_ppc=
+@@ -54,9 +54,9 @@
  CCOPT_mips=
+ CCOPT_loongarch64= -fwrapv
  #
 -CCDEBUG=
 +#CCDEBUG=
