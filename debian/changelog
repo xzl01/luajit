@@ -1,3 +1,9 @@
+luajit (2.1.0+git20231223.c525bcb+dfsg-1deepin2) unstable; urgency=medium
+
+  * Support riscv64 
+
+ -- xiangzelong <xiangzelong@deepin.org>  Mon, 26 Feb 2024 20:38:51 +0800
+
 luajit (2.1.0+git20231223.c525bcb+dfsg-1deepin1) unstable; urgency=medium
 
   * Support loongarch64

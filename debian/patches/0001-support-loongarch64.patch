@@ -2298,8 +2298,8 @@ index 026e741f..dee54e0f 100644
  #define LUAJIT_ARCH_mips32	6
  #define LUAJIT_ARCH_MIPS64	7
  #define LUAJIT_ARCH_mips64	7
-+#define LUAJIT_ARCH_LOONGARCH64	8
-+#define LUAJIT_ARCH_loongarch64	8
++#define LUAJIT_ARCH_LOONGARCH64	10
++#define LUAJIT_ARCH_loongarch64	10
  
  /* Target OS. */
  #define LUAJIT_OS_OTHER		0

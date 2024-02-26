@@ -12,7 +12,7 @@ Rules-Requires-Root: no
 Homepage: https://luajit.org
 
 Package: luajit
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
@@ -41,7 +41,7 @@ Description: Just in time compiler for Lua - common files
  by its embeddable (i.e. library) version.
 
 Package: libluajit-5.1-2
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libluajit-5.1-common (= ${source:Version}) [!ppc64el !s390x],
@@ -62,7 +62,7 @@ Package: libluajit-5.1-dev
 Section: libdevel
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x
+Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
 Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
          ${misc:Depends},
          ${shlibs:Depends},

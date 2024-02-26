@@ -2,3 +2,4 @@
 0001-consider-Hurd-as-a-POSIX-system.patch
 0002-Enable-debugging-symbols-in-the-build.patch
 0003-Get-rid-of-LUAJIT_VERSION_SYM-that-changes-ABI-on-ev.patch
+0004-support-riscv64.patch
