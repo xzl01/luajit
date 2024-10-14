@@ -62,6 +62,7 @@ static const uint8_t *lib_read_lfunc(lua_State *L, const uint8_t *p, GCtab *tab)
   ls.pe = (const char *)~(uintptr_t)0;
   ls.c = -1;
   ls.level = (BCDUMP_F_STRIP|(LJ_BE*BCDUMP_F_BE));
+  ls.fr2 = LJ_FR2;
   ls.chunkname = name;
   pt = lj_bcread_proto(&ls);
   pt->firstline = ~(BCLine)0;
@@ -266,6 +267,23 @@ GCfunc *lj_lib_checkfunc(lua_State *L, int narg)
   return funcV(o);
 }
 
+GCproto *lj_lib_checkLproto(lua_State *L, int narg, int nolua)
+{
+  TValue *o = L->base + narg-1;
+  if (L->top > o) {
+    if (tvisproto(o)) {
+      return protoV(o);
+    } else if (tvisfunc(o)) {
+      if (isluafunc(funcV(o)))
+	return funcproto(funcV(o));
+      else if (nolua)
+	return NULL;
+    }
+  }
+  lj_err_argt(L, narg, LUA_TFUNCTION);
+  return NULL;  /* unreachable */
+}
+
 GCtab *lj_lib_checktab(lua_State *L, int narg)
 {
   TValue *o = L->base + narg-1;
@@ -302,6 +320,14 @@ int lj_lib_checkopt(lua_State *L, int narg, int def, const char *lst)
     lj_err_argv(L, narg, LJ_ERR_INVOPTM, opt);
   }
   return def;
+}
+
+GCcdata *lj_lib_checkcdata(lua_State *L, int narg)
+{
+  TValue *o = L->base + narg-1;
+  if (!(o < L->top && tviscdata(o)))
+    lj_err_argt(L, narg, LUA_TCDATA);
+  return cdataV(o);
 }
 
 /* -- Strict type checks -------------------------------------------------- */
@@ -356,4 +382,3 @@ badtype:
   return 0;  /* unreachable */
 }
 #endif
-

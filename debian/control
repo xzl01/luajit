@@ -1,28 +1,26 @@
 Source: luajit
 Section: interpreters
+Homepage: https://github.com/openresty/luajit2
 Priority: optional
-Maintainer: Debian Lua Team <pkg-lua-devel@lists.alioth.debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>,
-           Mo Zhou <lumin@debian.org>
-Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.2
 Vcs-Git: https://salsa.debian.org/lua-team/luajit.git
-Vcs-Browser: https://salsa.debian.org/lua-team/luajit.git
-Rules-Requires-Root: no
-Homepage: https://luajit.org
+Vcs-Browser: https://salsa.debian.org/lua-team/luajit
+Maintainer: Debian Lua Team <pkg-lua-devel@lists.alioth.debian.org>
+Uploaders: Ondřej Surý <ondrej@debian.org>,
+	   Mo Zhou <lumin@debian.org>
+Build-Depends: debhelper-compat (= 13)
 
 Package: luajit
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel s390x powerpc
 Multi-Arch: foreign
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
-         libluajit-5.1-common (= ${source:Version}) [!ppc64el !s390x],
+Depends: libluajit-5.1-2 (= ${binary:Version}),
+         libluajit-5.1-common (= ${source:Version}),
          ${misc:Depends},
-         ${shlibs:Depends},
-         luajit2 [ppc64el s390x],
-Conflicts: luajit2 [!ppc64el !s390x]
-Replaces: luajit2 [!ppc64el !s390x]
-Description: Just in time compiler for Lua programming language version 5.1
+         ${shlibs:Depends}
+Conflicts: luajit2
+Replaces: luajit2
+Description: OpenResty-maintained branch of LuaJIT (interpreter)
  LuaJIT implements the full set of language features defined by Lua 5.1. The
  virtual machine (VM) is API- and ABI-compatible to the standard Lua interpreter
  and can be deployed as a drop-in replacement.
@@ -36,21 +34,21 @@ Multi-Arch: foreign
 Depends: ${misc:Depends},
 Conflicts: libluajit2-5.1-common
 Replaces: libluajit2-5.1-common
-Description: Just in time compiler for Lua - common files
+Description: OpenResty-maintained branch of LuaJIT (common files)
  This package contains files needed by the LuaJIT interpreter/jitter as well
  by its embeddable (i.e. library) version.
 
 Package: libluajit-5.1-2
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel s390x powerpc
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: libluajit-5.1-common (= ${source:Version}) [!ppc64el !s390x],
+Depends: libluajit-5.1-common (= ${source:Version}),
          ${misc:Depends},
-         ${shlibs:Depends},
-         libluajit2-5.1-2 [ppc64el s390x]
-Conflicts: libluajit2-5.1-2 [!ppc64el !s390x]
-Replaces: libluajit2-5.1-2 [!ppc64el !s390x]
-Description: Just in time compiler for Lua - library version
+         ${shlibs:Depends}
+Conflicts: libluajit2-5.1-2
+Replaces: libluajit2-5.1-2
+Provides: libluajit-5.1.so.2
+Description: OpenResty-maintained branch of LuaJIT (shared objects)
  LuaJIT implements the full set of language features defined by Lua 5.1. The
  virtual machine (VM) is API- and ABI-compatible to the standard Lua interpreter
  and can be deployed as a drop-in replacement.
@@ -62,13 +60,12 @@ Package: libluajit-5.1-dev
 Section: libdevel
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Architecture: any-i386 any-amd64 arm64 armel armhf mips mipsel mipsn32 mipsn32el mips64 mips64el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x loong64 riscv64
-Depends: libluajit-5.1-2 (= ${binary:Version}) [!ppc64el !s390x],
+Architecture: amd64 arm64 armel armhf i386 mips64el mipsel s390x powerpc
+Depends: libluajit-5.1-2 (= ${binary:Version}),
          ${misc:Depends},
-         ${shlibs:Depends},
-         libluajit2-5.1-dev [ppc64el s390x]
-Conflicts: libluajit2-5.1-dev [!ppc64el !s390x]
-Replaces: libluajit2-5.1-dev [!ppc64el !s390x]
-Description: Just in time compiler for Lua - development files
+Conflicts: libluajit2-5.1-dev
+Replaces: libluajit2-5.1-dev
+Provides: libluajit-5.1.so
+Description: OpenResty-maintained branch of LuaJIT (development files)
  This package contains header files and a statically linkable library for
  LuaJIT.

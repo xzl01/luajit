@@ -79,6 +79,7 @@ ERRDEF(SETFENV,	LUA_QL("setfenv") " cannot change environment of given object")
 ERRDEF(CORUN,	"cannot resume running coroutine")
 ERRDEF(CODEAD,	"cannot resume dead coroutine")
 ERRDEF(COSUSP,	"cannot resume non-suspended coroutine")
+ERRDEF(PRNGSD,	"PRNG seeding failed")
 ERRDEF(TABINS,	"wrong number of arguments to " LUA_QL("insert"))
 ERRDEF(TABCAT,	"invalid value (%s) at index %d in table for " LUA_QL("concat"))
 ERRDEF(TABSORT,	"invalid order function for sorting")
@@ -109,6 +110,8 @@ ERRDEF(NOJIT,	"no JIT compiler for this architecture (yet)")
 ERRDEF(NOJIT,	"JIT compiler permanently disabled by build option")
 #endif
 ERRDEF(JITOPT,	"unknown or malformed optimization flag " LUA_QS)
+ERRDEF(PRNGSTATE,     "PRNG state must be an array with up to 8 integers "
+                  "or an integer")
 
 /* Lexer/parser errors. */
 ERRDEF(XMODE,	"attempt to load chunk with wrong mode")
@@ -178,6 +181,7 @@ ERRDEF(FFI_CBACKOV,	"too many callbacks")
 #endif
 ERRDEF(FFI_NYIPACKBIT,	"NYI: packed bit fields")
 ERRDEF(FFI_NYICALL,	"NYI: cannot call this C function (yet)")
+ERRDEF(FFI_NOTLOAD,	"ffi module not loaded (yet)")
 #endif
 
 #if LJ_HASBUFFER

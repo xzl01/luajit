@@ -453,6 +453,7 @@ static TRef snap_replay_const(jit_State *J, IRIns *ir)
   case IR_KNUM: case IR_KINT64:
     return lj_ir_k64(J, (IROp)ir->o, ir_k64(ir)->u64);
   case IR_KPTR: return lj_ir_kptr(J, ir_kptr(ir));  /* Continuation. */
+  case IR_KNULL: return lj_ir_knull(J, irt_type(ir->t));
   default: lj_assertJ(0, "bad IR constant op %d", ir->o); return TREF_NIL;
   }
 }
@@ -800,7 +801,6 @@ static void snap_restoredata(jit_State *J, GCtrace *T, ExitState *ex,
 	*(lua_Number *)dst = (lua_Number)*(int32_t *)dst;
 	return;
       }
-      src = (int32_t *)&ex->gpr[r-RID_MIN_GPR];
 #if !LJ_SOFTFP
       if (r >= RID_MAX_GPR) {
 	src = (int32_t *)&ex->fpr[r-RID_MIN_FPR];
@@ -814,7 +814,10 @@ static void snap_restoredata(jit_State *J, GCtrace *T, ExitState *ex,
 #endif
       } else
 #endif
-      if (LJ_64 && LJ_BE && sz == 4) src++;
+      {
+	src = (int32_t *)&ex->gpr[r-RID_MIN_GPR];
+	if (LJ_64 && LJ_BE && sz == 4) src++;
+      }
     }
   }
   lj_assertJ(sz == 1 || sz == 2 || sz == 4 || sz == 8,
@@ -902,9 +905,13 @@ static void snap_unsink(jit_State *J, GCtrace *T, ExitState *ex,
 	if (irk->o == IR_FREF) {
 	  switch (irk->op2) {
 	  case IRFL_TAB_META:
-	    snap_restoreval(J, T, ex, snapno, rfilt, irs->op2, &tmp);
-	    /* NOBARRIER: The table is new (marked white). */
-	    setgcref(t->metatable, obj2gco(tabV(&tmp)));
+	    if (T->ir[irs->op2].o == IR_KNULL) {
+	      setgcrefnull(t->metatable);
+	    } else {
+	      snap_restoreval(J, T, ex, snapno, rfilt, irs->op2, &tmp);
+	      /* NOBARRIER: The table is new (marked white). */
+	      setgcref(t->metatable, obj2gco(tabV(&tmp)));
+	    }
 	    break;
 	  case IRFL_TAB_NOMM:
 	    /* Negative metamethod cache invalidated by lj_tab_set() below. */
@@ -950,7 +957,8 @@ const BCIns *lj_snap_restore(jit_State *J, void *exptr)
   lua_State *L = J->L;
 
   /* Set interpreter PC to the next PC to get correct error messages. */
-  setcframe_pc(cframe_raw(L->cframe), pc+1);
+  setcframe_pc(L->cframe, pc+1);
+  setcframe_pc(cframe_raw(cframe_prev(L->cframe)), pc);
 
   /* Make sure the stack is big enough for the slots from the snapshot. */
   if (LJ_UNLIKELY(L->base + snap->topslot >= tvref(L->maxstack))) {

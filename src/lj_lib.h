@@ -42,9 +42,11 @@ LJ_FUNC lua_Number lj_lib_checknum(lua_State *L, int narg);
 LJ_FUNC int32_t lj_lib_checkint(lua_State *L, int narg);
 LJ_FUNC int32_t lj_lib_optint(lua_State *L, int narg, int32_t def);
 LJ_FUNC GCfunc *lj_lib_checkfunc(lua_State *L, int narg);
+LJ_FUNC GCproto *lj_lib_checkLproto(lua_State *L, int narg, int nolua);
 LJ_FUNC GCtab *lj_lib_checktab(lua_State *L, int narg);
 LJ_FUNC GCtab *lj_lib_checktabornil(lua_State *L, int narg);
 LJ_FUNC int lj_lib_checkopt(lua_State *L, int narg, int def, const char *lst);
+LJ_FUNC GCcdata *lj_lib_checkcdata(lua_State *L, int narg);
 
 #if LJ_HASBUFFER
 LJ_FUNC GCstr *lj_lib_checkstrx(lua_State *L, int narg);

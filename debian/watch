@@ -1,3 +1,6 @@
 version=4
-opts="pretty=2.1.0+git%cd.%h, mode=git, oversionmangle=s/$/+dfsg/, uversionmangle=s/$/+dfsg/" \
-https://github.com/LuaJIT/LuaJIT HEAD
+opts=\
+filenamemangle=s%(?:.*?)?v?(\d[\d.]*@ARCHIVE_EXT@)%@PACKAGE@-$1%,\
+uversionmangle=s%v?2\.1-%2.1.0+openresty% \
+https://github.com/openresty/luajit2/tags \
+(?:.*?/)?v?@ANY_VERSION@@ARCHIVE_EXT@
